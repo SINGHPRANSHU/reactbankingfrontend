@@ -1,0 +1,50 @@
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+
+  
+  .transferdiv {
+    margin: 4em 8em;  
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 2em;
+  }
+
+  @media screen and (max-width: 600px) {
+   
+    
+  .transferdiv {
+    margin: 1em 0.2em;  
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 0em;
+  }
+  }
+
+  .loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid rgb(189, 107, 107);
+    border-bottom: 4px solid rgb(105, 194, 102);
+    width: 40px;
+    height: 40px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
