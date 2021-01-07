@@ -22,6 +22,7 @@ export default function TransferTo() {
   let [minerr,setMinerr] =useState(false);
   let [selecterr,setSelecrerr] =useState(false);
   let [loading,setLoading] = useState("");
+  let [stringerr,setStringerr] = useState(false);
 
   let [receivers,setReceivers]=useState([]);
   let [customers,setCustomers] =useContext(UserContext);
@@ -68,6 +69,13 @@ export default function TransferTo() {
   setMinerr(false);
   setSelecrerr(false);
   setComp(false)
+  if(typeof amount !== 'number'){
+    setStringerr(true);
+    setTimeout(() => {
+      setStringerr(false)
+    }, 2000);
+    return
+  }
   if(amount<=0){
     setMinerr(true);
     setTimeout(() => {
@@ -190,6 +198,9 @@ export default function TransferTo() {
             
             {comp? <div style={{width:"100%"}}>
         <h6 style={{display:"flex",justifyContent:"center",color:"green"}} >Money Transferred</h6>
+      </div>:<div></div>}
+            {stringerr? <div style={{width:"100%"}}>
+        <h6 style={{display:"flex",justifyContent:"center",color:"red"}} >Enter Valid Number</h6>
       </div>:<div></div>}
             {err? <div style={{width:"100%"}}>
         <h6 style={{display:"flex",justifyContent:"center",color:"red"}} >Please Check Your Balance</h6>

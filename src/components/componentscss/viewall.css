@@ -5,7 +5,7 @@
     width: 80%;
   }
   
-  .customers td, #customers th {
+  .customers td, .customers th {
 
     border: 1px solid #ddd;
     padding: 8px 8px;

@@ -10,7 +10,8 @@ export default function Transaction(){
 
 
      const list =transaction.map(tran=> (
-            <tr>
+            <tr key={tran._id}>
+              <td>{tran._id}</td>
               <td>{tran.sendername}</td>
               <td>{tran.senderid}</td>
               <td>{tran.receivername}</td>
@@ -24,12 +25,13 @@ export default function Transaction(){
      
      return (
       <table className="customers">
-          <tr>
-            <th >sender</th>
-            <th >senderid</th>
-            <th>receiver</th>
-            <th>receiverid</th>
-            <th>transferred</th>
+          <tr key="0">
+            <th style={{textAlign:"center"}}>transactionid</th>
+            <th style={{textAlign:"center"}}>sender</th>
+            <th style={{textAlign:"center"}}>senderid</th>
+            <th style={{textAlign:"center"}}>receiver</th>
+            <th style={{textAlign:"center"}}>receiverid</th>
+            <th style={{textAlign:"center"}}>transferred</th>
           </tr>
         {list}
       </table>  
