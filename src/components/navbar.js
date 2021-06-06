@@ -42,6 +42,9 @@ return(
             <li>
             <NavLink to="/transactions"  activeClassName="linkbackground" ><h6 style={{fontWeight:"bold"}}>TRANSACTIONS</h6></NavLink>
             </li>
+            <li>
+            <NavLink to="/stocks"  activeClassName="linkbackground" ><h6 style={{fontWeight:"bold"}}>STOCKS</h6></NavLink>
+            </li>
            
             
             </div>

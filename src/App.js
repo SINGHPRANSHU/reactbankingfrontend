@@ -17,6 +17,7 @@ import Viewall from "./page/viewallcustomers";
 
 import TransferTO from "./page/transferto";
 import  Transaction from "./page/transactions"
+import  Stocks from "./page/stocks"
 
 
 import Navbar from "./components/navbar";
@@ -39,7 +40,7 @@ function Routing() {
     .then(response => response.json())
     .then(data => {
       setCustomers([...data])
-      
+       
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -80,6 +81,9 @@ useEffect(fetchdata,[]);
           </Route>
           <Route path="/transactions">
             <Transaction />
+          </Route>
+          <Route path="/stocks">
+            <Stocks />
           </Route>
           
           <Route path="/" exact={true}>

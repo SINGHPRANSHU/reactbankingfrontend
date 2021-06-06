@@ -3,7 +3,7 @@ import "../components/componentscss/home.css"
 export default function Home() {
     return (
 
-        <div className="mediawidth" style={{display:"flex",justifyContent:"center",backgroundColor:"#efeded",flexDirection:"column"}}>
+        <div className="mediawidth" style={{display:"flex",justifyContent:"center",backgroundColor:"#efeded",flexDirection:"column",height:'100vh'}}>
             <div style={{display:"flex",justifyContent:"center"}}>
               
                <h1 >BANKING SYSTEM</h1>
@@ -34,7 +34,7 @@ export default function Home() {
                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style={{width:"100px",height:"100px"}}/>
                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style={{width:"100px",height:"100px"}}/>
                  </div>
-                 <div style={{display:"flex",justifyContent:"space-around", marginTop:"1em",flexDirection:"row"}}>
+                 <div style={{display:"flex",justifyContent:"space-around", marginTop:"1em",flexDirection:"row",paddingBottom:'1em'}}>
                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style={{width:"100px",height:"100px"}}/>
                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style={{width:"100px",height:"100px"}}/>
                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style={{width:"100px",height:"100px"}}/>

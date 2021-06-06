@@ -17,6 +17,7 @@ export default function Transaction(){
               <td>{tran.receivername}</td>
               <td>{tran.receiverid}</td>
               <td>{tran.balance}</td>
+              <td>{tran.time}</td>
             </tr>))
          
      
@@ -32,6 +33,7 @@ export default function Transaction(){
             <th style={{textAlign:"center"}}>receiver</th>
             <th style={{textAlign:"center"}}>receiverid</th>
             <th style={{textAlign:"center"}}>transferred</th>
+            <th style={{textAlign:"center"}}>time</th>
           </tr>
         {list}
       </table>  

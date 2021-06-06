@@ -76,6 +76,7 @@ export default function TransferTo() {
     }, 2000);
     return
   }
+  
   if(amount<=0){
     setMinerr(true);
     setTimeout(() => {
@@ -100,7 +101,7 @@ export default function TransferTo() {
     receiverid:selected
 
    }
-   console.log(data);
+ 
    
    fetch('https://transactionrest.herokuapp.com/api/customer/update', {
     method: 'POST',
@@ -119,6 +120,7 @@ export default function TransferTo() {
       setErr(false)
     }, 3000);
    }else{
+    
     setLoading("")
     setComp(true)
     setTimeout(() => {
@@ -176,7 +178,7 @@ export default function TransferTo() {
             <input type="text" id="lname" name="id" placeholder="Your Id" value={id}/>
            
             <label for="lname">Amount</label>
-            <input type="text" id="lname" name="amount" placeholder="Enter amount" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
+            <input type="text" id="lname" name="amount" placeholder="Enter amount" value={amount} onChange={(e)=>setAmount(parseInt(e.target.value))}/>
 
             <label for="transfer to">Transfer To</label>
             <select  name="receiver" onChange={handleChange}  >
