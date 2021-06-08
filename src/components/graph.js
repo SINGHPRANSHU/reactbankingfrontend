@@ -1,4 +1,4 @@
-import { useRef, useEffect, createRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 
 export default function Graph({ labels, data, text, color, stocks, selectedStock, setSelectedStocks}) {
@@ -55,19 +55,19 @@ export default function Graph({ labels, data, text, color, stocks, selectedStock
         }
       }
   });
-   },[])
+   },[ labels, data, text, color])
 
 
     return (
 
     
      <div style={{height:'90vh',width:'100vw',display:'flex', justifyContent:'space-around'}}>
-         <div class="list-group" style ={{marginTop:'5em', width:"20em"}}>
+         <div className="list-group" style ={{marginTop:'5em', width:"20em"}}>
          {stocks.map((stock, index) => {
             if(index ===selectedStock){
-                return  <a onClick={() =>setSelectedStocks(index)} style ={{cursor:"pointer"}} class="list-group-item list-group-item-action list-group-item-primary">{stock}</a>
+                return  <a onClick={() =>setSelectedStocks(index)} style ={{cursor:"pointer"}} className="list-group-item list-group-item-action list-group-item-primary" key= {index}>{stock}</a>
             }else{
-                return <a onClick={() =>setSelectedStocks(index)} style ={{cursor:"pointer"}} class="list-group-item list-group-item-action list-group-item-light">{stock}</a>
+                return <a onClick={() =>setSelectedStocks(index)} style ={{cursor:"pointer"}} className="list-group-item list-group-item-action list-group-item-light" key ={ index }>{stock}</a>
             }
          })}
          </div>

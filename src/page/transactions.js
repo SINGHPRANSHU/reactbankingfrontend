@@ -1,23 +1,32 @@
 import {useContext} from "react";
 
 import {TransactionContext} from "../context/transactioninfo"
+import {LoginContext} from '../context/logindetais'
+import { useHistory } from 'react-router-dom';
 
 import "../components/componentscss/viewall.css"
 
 export default function Transaction(){
 
     let [transaction,setTransaction] =useContext(TransactionContext);
-
+    console.log(transaction);
+    const [user, setUser] = useContext(LoginContext)
+ 
+   
+    const history = useHistory();
+    if(!user.token){
+      history.push("/login")
+    }
 
      const list =transaction.map(tran=> (
             <tr key={tran._id}>
               <td>{tran._id}</td>
-              <td>{tran.sendername}</td>
+              <td>{tran.sender}</td>
               <td>{tran.senderid}</td>
-              <td>{tran.receivername}</td>
+              <td>{tran.receiver}</td>
               <td>{tran.receiverid}</td>
               <td>{tran.balance}</td>
-              <td>{tran.time}</td>
+              <td>{(new Date(tran.time)).toLocaleString()}</td>
             </tr>))
          
      

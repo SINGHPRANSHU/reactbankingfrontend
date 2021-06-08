@@ -3,13 +3,18 @@ import "../components/componentscss/transferbutton.css"
 import { useHistory } from 'react-router-dom';
 import {UserContext} from "../context/usersinfo"
 import "../components/componentscss/viewall.css"
+import { LoginContext } from "../context/logindetais"
 
 export default function Viewall() {
  
   let [customers,setCustomers] =useContext(UserContext);
+  const [user, setUser] = useContext(LoginContext)
  
    
     const history = useHistory();
+    if(!user.token){
+      history.push("/login")
+    }
 
     
 

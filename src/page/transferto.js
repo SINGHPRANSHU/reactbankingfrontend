@@ -8,6 +8,7 @@ import "../components/componentscss/declinebutton.css"
 
 
 import {TransactionContext} from "../context/transactioninfo"
+import {LoginContext} from '../context/logindetais'
 
 
 
@@ -24,9 +25,11 @@ export default function TransferTo() {
   let [loading,setLoading] = useState("");
   let [stringerr,setStringerr] = useState(false);
 
-  let [receivers,setReceivers]=useState([]);
   let [customers,setCustomers] =useContext(UserContext);
   let [transaction,setTransaction] =useContext(TransactionContext);
+  const [user, setUser] = useContext(LoginContext)
+
+  
   
 
   
@@ -34,6 +37,9 @@ export default function TransferTo() {
 
   const location = useLocation();
   const history = useHistory();
+  if(!user.token){
+    history.push("/login")
+  }
   
   const compare = (str1,str2)=>{
    let result =str1.localeCompare(str2);
@@ -51,14 +57,14 @@ export default function TransferTo() {
     }
     setId(location.state._id)
     setName(location.state.name)
-    setReceivers(customers.filter(customer=>compare(customer._id,location.state._id)))
+    setSelected(location.state._id) 
  }, [location]);
   
  
 
  const handleChange = (e)=>{
  e.preventDefault();
- setSelected(e.target.value) 
+//  setSelected(e.target.value) 
  setName()
  };
 
@@ -92,7 +98,7 @@ export default function TransferTo() {
     return
   }
   setLoading("loader")
-   const receiver = receivers.find(customer=>compare(customer._id,id));
+   const receiver = customers.find(customer=>compare(customer._id,id));
    const data ={
     senderid:id,
     sendername:name,
@@ -103,10 +109,11 @@ export default function TransferTo() {
    }
  
    
-   fetch('https://transactionrest.herokuapp.com/api/customer/update', {
+   fetch('http://localhost:4000/api/customer/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `${user.token}`
     },
     body: JSON.stringify(data),
   })
@@ -129,28 +136,31 @@ export default function TransferTo() {
      
     }, 3000);
 
-    fetch('https://transactionrest.herokuapp.com/api/customers', {
+    fetch('http://localhost:4000/api/customers', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `${user.token}`
       },
     })
     .then(response => response.json())
     .then(result =>{
-     setCustomers([...result])
+      const newData = result.filter(d => d._id !== user._id)
+     setCustomers([...newData])
      })
    .catch(error=>{console.log(error);})
 
     
-   fetch('https://transactionrest.herokuapp.com/api/alltransaction', {
+   fetch('http://localhost:4000/api/customer', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `${user.token}`
     },
   })
   .then(response => response.json())
   .then(result =>{
-   setTransaction([...(result).reverse()])
+   setTransaction([...(result.ids).reverse()])
    })
  .catch(error=>{console.log(error);})
 
@@ -172,22 +182,24 @@ export default function TransferTo() {
          
         <div className="transferdiv">
             <label for="fname">From</label>
-            <input type="text" id="fname" name="firstname" placeholder="Your name.." value={name}/>
+            <input type="text" id="fname" name="firstname" placeholder="Your name.." value={user.name}/>
 
             <label for="lname">Sender Id</label>
-            <input type="text" id="lname" name="id" placeholder="Your Id" value={id}/>
+            <input type="text" id="lname" name="id" placeholder="Your Id" value={user._id}/>
            
             <label for="lname">Amount</label>
             <input type="text" id="lname" name="amount" placeholder="Enter amount" value={amount} onChange={(e)=>setAmount(parseInt(e.target.value))}/>
 
             <label for="transfer to">Transfer To</label>
-            <select  name="receiver" onChange={handleChange}  >
-                <option value={selected} >select to transfer</option>
-                  {receivers.map(customer=>(
-                    
-                      <option value={customer._id} >{customer.name}</option>
-                    
-                  ))}             
+            <select  name="receiver" onChange={handleChange}   >
+                {/* <option value={selected} >select to transfer</option> */}
+                  {customers.map(customer=>{
+                    if(customer._id == id){
+                      return ( <option value={customer._id} selected>{customer.name}</option>)
+                    }else{
+                      return (<option value={customer._id} >{customer.name}</option>)
+                    }     
+                  })}             
             </select>
             <div style={{display:"flex",flexDirection:"row"}} className="buttondiv">
               <div style={{width:"50%"}}>

@@ -42,6 +42,9 @@ link{
   background-color: rgb(74, 133, 189);
   font-size: larger;
 }
+.logoutlinkbackground{
+  font-size: larger;
+}
 
 .scrolled{
   position: fixed;

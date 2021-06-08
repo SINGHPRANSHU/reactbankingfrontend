@@ -1,4 +1,5 @@
-import {useState,useEffect} from "react"
+import {useState,useEffect,useContext} from "react"
+import {LoginContext } from '../context/logindetais'
 
 import {
     NavLink 
@@ -8,6 +9,7 @@ import "./componentscss/navbar.css"
 
 export default function Navbar(){
   const [scrolled,setScrolled]=useState(false);
+  const [user, setUser] = useContext(LoginContext)
   const handleScroll=() => {
     const offset=window.scrollY;
     if(offset > 200 ){
@@ -36,14 +38,20 @@ return(
 </svg> <h6 style={{fontWeight:"bold"}}>BANKING</h6></NavLink>
             </li>
             <div style={{float:"right",display:"flex",flexDirection:"row",justifyContent:"space-around"}}>
-            <li>
+           { user.token &&  <li>
+            <NavLink to="/me"  activeClassName="linkbackground" > <h6 style={{fontWeight:"bold"}}>{`welcome ${user.name}`}</h6></NavLink>
+            </li>}
+            { user.token && <li>
             <NavLink to="/viewall"  activeClassName="linkbackground" ><h6 style={{fontWeight:"bold"}}>CUSTOMERS</h6></NavLink>
-            </li>
-            <li>
+            </li>}
+            {user.token && <li>
             <NavLink to="/transactions"  activeClassName="linkbackground" ><h6 style={{fontWeight:"bold"}}>TRANSACTIONS</h6></NavLink>
-            </li>
+            </li>}
             <li>
             <NavLink to="/stocks"  activeClassName="linkbackground" ><h6 style={{fontWeight:"bold"}}>STOCKS</h6></NavLink>
+            </li>
+            <li>
+            <NavLink to={user.token?"/":"/login"}  activeClassName={user.token?"logoutlinkbackground":"linkbackground"}  onClick={() => setUser({})}><h6 style={{fontWeight:"bold"}}>{user.token?"LOGOUT":"LOGIN"}</h6></NavLink>
             </li>
            
             
