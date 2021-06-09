@@ -36,10 +36,31 @@ function Routing() {
   const [user, setUser] = useContext(LoginContext)
 
   let fetchdata = ()=>{
+    let userFromLocal = localStorage.getItem("token")
+    const expiry = localStorage.getItem("expiry")
     if(!user.token){
+      if(!userFromLocal){
+        return
+      }
+      if(expiry > (new Date()).getTime()){
+          setUser(JSON.parse(userFromLocal))
+          userFromLocal = JSON.parse(userFromLocal)
+      }else{
+       localStorage.removeItem("token")
+       localStorage.removeItem("expiry")
+       userFromLocal = {}
+       setUser({})
+      }
+      if(!userFromLocal.token){
+        localStorage.removeItem("token")
+        localStorage.removeItem("expiry")
+        setUser({})
+        return
+      }
       return
     }
-    fetch('http://localhost:4000/api/customers', {
+   
+    fetch('https://transactionrest.herokuapp.com/api/customers', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +77,7 @@ function Routing() {
       console.error('Error:', error);
     });
 
-    fetch('http://localhost:4000/api/customer', {
+    fetch('https://transactionrest.herokuapp.com/api/customer', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

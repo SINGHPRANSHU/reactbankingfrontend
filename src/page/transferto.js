@@ -109,7 +109,7 @@ export default function TransferTo() {
    }
  
    
-   fetch('http://localhost:4000/api/customer/update', {
+   fetch('https://transactionrest.herokuapp.com/api/customer/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ export default function TransferTo() {
      
     }, 3000);
 
-    fetch('http://localhost:4000/api/customers', {
+    fetch('https://transactionrest.herokuapp.com/api/customers', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ export default function TransferTo() {
    .catch(error=>{console.log(error);})
 
     
-   fetch('http://localhost:4000/api/customer', {
+   fetch('https://transactionrest.herokuapp.com/api/customer', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -169,7 +169,6 @@ export default function TransferTo() {
     
   })
   .catch((error) => {
-    console.error('Error:', error);
   });
 
  }
@@ -188,7 +187,15 @@ export default function TransferTo() {
             <input type="text" id="lname" name="id" placeholder="Your Id" value={user._id}/>
            
             <label for="lname">Amount</label>
-            <input type="text" id="lname" name="amount" placeholder="Enter amount" value={amount} onChange={(e)=>setAmount(parseInt(e.target.value))}/>
+            <input type="text" id="lname" name="amount" placeholder="Enter amount" value={amount} onChange={(e)=>{
+              if(!isNaN(parseInt(e.target.value))){
+                setAmount(parseInt(e.target.value))
+              }else{
+                setAmount(0)
+              }
+              
+             
+              }}/>
 
             <label for="transfer to">Transfer To</label>
             <select  name="receiver" onChange={handleChange}   >

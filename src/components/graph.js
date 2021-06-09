@@ -1,16 +1,16 @@
 import { useRef, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 
-export default function Graph({ labels, data, text, color, stocks, selectedStock, setSelectedStocks}) {
+export default function Graph({ labels, data, text, color, stocks, selectedStock, setSelectedStocks, predicted}) {
    const ref = useRef()
 
    useEffect(() => {
-    new Chart(ref.current.getContext('2d'), {
+    const chart = new Chart(ref.current.getContext('2d'), {
       type: 'line',
       data: {
           labels,
           datasets: [{
-              label: '# of Votes',
+              label: 'Actual Price',
               data,
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
@@ -29,7 +29,28 @@ export default function Graph({ labels, data, text, color, stocks, selectedStock
                   'rgba(255, 159, 64, 1)'
               ],
               borderWidth: 3
-          }]
+          },
+          {
+            label: 'Predicted Price',
+            data: predicted,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 3
+        }]
       },
       options: {
           scales: {
@@ -55,6 +76,9 @@ export default function Graph({ labels, data, text, color, stocks, selectedStock
         }
       }
   });
+  return () => {
+    chart.destroy()
+  }
    },[ labels, data, text, color])
 
 

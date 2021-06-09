@@ -9,7 +9,6 @@ import "../components/componentscss/viewall.css"
 export default function Transaction(){
 
     let [transaction,setTransaction] =useContext(TransactionContext);
-    console.log(transaction);
     const [user, setUser] = useContext(LoginContext)
  
    

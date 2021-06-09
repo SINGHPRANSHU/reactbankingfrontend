@@ -39,7 +39,7 @@ return(
             </li>
             <div style={{float:"right",display:"flex",flexDirection:"row",justifyContent:"space-around"}}>
            { user.token &&  <li>
-            <NavLink to="/me"  activeClassName="linkbackground" > <h6 style={{fontWeight:"bold"}}>{`welcome ${user.name}`}</h6></NavLink>
+            <NavLink to="/me"  activeClassName="linkbackground" > <h6 style={{fontWeight:"bold"}}>{`WELCOME ${user.name.toUpperCase()}`}</h6></NavLink>
             </li>}
             { user.token && <li>
             <NavLink to="/viewall"  activeClassName="linkbackground" ><h6 style={{fontWeight:"bold"}}>CUSTOMERS</h6></NavLink>
@@ -51,7 +51,10 @@ return(
             <NavLink to="/stocks"  activeClassName="linkbackground" ><h6 style={{fontWeight:"bold"}}>STOCKS</h6></NavLink>
             </li>
             <li>
-            <NavLink to={user.token?"/":"/login"}  activeClassName={user.token?"logoutlinkbackground":"linkbackground"}  onClick={() => setUser({})}><h6 style={{fontWeight:"bold"}}>{user.token?"LOGOUT":"LOGIN"}</h6></NavLink>
+            <NavLink to={user.token?"/":"/login"}  activeClassName={user.token?"logoutlinkbackground":"linkbackground"}  onClick={() => {
+              localStorage.removeItem("token")
+              localStorage.removeItem("expiry")
+              setUser({})}}><h6 style={{fontWeight:"bold"}}>{user.token?"LOGOUT":"LOGIN"}</h6></NavLink>
             </li>
            
             

@@ -14,7 +14,7 @@ export default function Login() {
 
     const getToken = (e) => {
        e.preventDefault()
-       fetch('http://localhost:4000/login', {
+       fetch('https://transactionrest.herokuapp.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -23,8 +23,9 @@ export default function Login() {
             })
             .then(response => response.json())
             .then(data => {
-            console.log('Success:', data);
             if(data.status !== 500){
+                localStorage.setItem("token", JSON.stringify(data))
+                localStorage.setItem("expiry", (new Date()).getTime()+1000*240*60)
                 setUser(data)
                 history.push("/")
                 }
