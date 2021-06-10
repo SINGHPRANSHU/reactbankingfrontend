@@ -1,5 +1,6 @@
 import {useState,useEffect,useContext} from "react"
 import {LoginContext } from '../context/logindetais'
+import { useHistory } from 'react-router-dom';
 
 import {
     NavLink 
@@ -19,6 +20,10 @@ export default function Navbar(){
       setScrolled(false);
     }
   }
+
+  const history = useHistory();
+  console.log(history.location);
+  
  
 
   useEffect(() => {
@@ -26,7 +31,7 @@ export default function Navbar(){
   })
 
   let navbarClasses=[];
-  if(scrolled){
+  if(scrolled && history.location.pathname !=='/transactions'){
     navbarClasses.push('scrolled');
   }
 return(
